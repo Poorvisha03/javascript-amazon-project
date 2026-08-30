@@ -19,7 +19,7 @@ export function addToCart(productId){
 
     cart.forEach((cartItem) => {
         if(productId === cartItem.productId){
-            matchingItem = item;
+            matchingItem = cartItem;
         }
     });
     let quantitySelectorValue;
@@ -48,3 +48,15 @@ export function removeFromCart(productId) {
     cart = newCart;
     saveToStorage();
 }
+
+export function calculateCartQuantity(selector,formatText = false){
+    let cartQuantity = 0;
+
+    cart.forEach((cartItem)=>{
+    cartQuantity += cartItem.quantity;
+    });
+    const element = document.querySelector(selector);
+    if(element){
+        element.innerHTML = formatText ? `${cartQuantity} items` : cartQuantity;
+    }
+};
