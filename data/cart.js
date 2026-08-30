@@ -53,10 +53,23 @@ export function calculateCartQuantity(selector,formatText = false){
     let cartQuantity = 0;
 
     cart.forEach((cartItem)=>{
-    cartQuantity += cartItem.quantity;
+    cartQuantity += Number(cartItem.quantity);
     });
-    const element = document.querySelector(selector);
-    if(element){
-        element.innerHTML = formatText ? `${cartQuantity} items` : cartQuantity;
+    if(selector){
+        const element = document.querySelector(selector);
+        if(element){
+            element.innerHTML = formatText ? `${cartQuantity} items` : cartQuantity;
+        }
     }
+    return cartQuantity;
+    
 };
+
+export function updateQuantity(productId,newQuantity){
+    cart.forEach((cartItem) => {
+        if(productId === cartItem.productId){
+            cartItem.quantity = Number(newQuantity);
+        }
+    });
+    saveToStorage()
+}
