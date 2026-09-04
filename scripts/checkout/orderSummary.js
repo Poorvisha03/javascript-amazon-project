@@ -40,7 +40,7 @@ export function renderOrderSummary(){
                         ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                        $${formatCurrency(matchingProduct.priceCents)}
+                        ${matchingProduct.getPrice()}
                     </div>
                     <div class="product-quantity
                     js-product-quantity-${matchingProduct.id}">
@@ -82,7 +82,7 @@ export function renderOrderSummary(){
         deliveryOptions.forEach((deliveryOption) => {
             const dateString = calculateDeliveryDate(deliveryOption);
             const priceString = deliveryOption.priceCents === 0
-            ? 'Free Shipping' : `$${formatCurrency(deliveryOption.priceCents)} - Shipping`
+            ? 'Free Shipping' : `${matchingProduct.getPrice()} - Shipping`
 
             const ischecked = deliveryOption.id === cartItem.deliveryOptionId;
             html +=
