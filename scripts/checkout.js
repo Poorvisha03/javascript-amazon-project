@@ -4,11 +4,23 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 //import "../data/cart-class.js";
 
 
+async function loadPage(){
+    await loadProductsFetch();
+
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+
+loadPage();
+
+
+/*
 loadProductsFetch()
 .then(() => {
     renderOrderSummary();
     renderPaymentSummary();
 })
+*/
 
 /*
 loadProducts(() => {
