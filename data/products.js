@@ -74,8 +74,10 @@ export function loadProductsFetch(){
 
     console.log('load products')
     
-    
+  }).catch(() => {
+    console.log('unexpected error: products cannot be Loaded')
   });
+  
 
   return promise;
 }
@@ -103,9 +105,15 @@ export function loadProducts(fun){
     }
   });
 
+  xhr.addEventListener('error', (error) => {
+    console.log('unexpected error: products cannot be Loaded');
+  })
+
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
+
+
 
 /*
 export const products = [
