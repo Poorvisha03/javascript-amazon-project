@@ -1,4 +1,5 @@
 import { renderOrderSummary } from "../scripts/checkout/orderSummary.js";
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 
 export let cart;
 
@@ -59,6 +60,7 @@ export function removeFromCart(productId) {
     cart = newCart;
     saveToStorage();
     renderOrderSummary();
+    renderPaymentSummary();
 }
 
 export function calculateCartQuantity(selector,formatText = false){
