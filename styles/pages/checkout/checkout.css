@@ -210,6 +210,16 @@
   margin-bottom: 15px;
 }
 
+.view-products-button{
+  width: 150px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+
+  margin-top: 11px;
+  margin-bottom: 15px; 
+}
+
 .quantity-input{
   width: 30px;
   display: none;

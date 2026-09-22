@@ -109,8 +109,16 @@ export function renderOrderSummary(){
         return html;
     }
 
-    document.querySelector('.js-order-summary')
-    .innerHTML = cartSummaryHTML;
+    if (cart === 0 ||  cart.length === 0){
+        document.querySelector('.js-order-summary')
+        .innerHTML = `<p>Your cart is empty.</p>
+        <a href="index.html"><button class="button-primary view-products-button">
+        View Products</button></a>`;
+    }else{
+        document.querySelector('.js-order-summary')
+        .innerHTML = cartSummaryHTML;
+    }
+    
 
     document.querySelectorAll('.js-delete-link')
     .forEach((link)=>{

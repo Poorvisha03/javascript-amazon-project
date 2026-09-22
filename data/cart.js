@@ -1,3 +1,5 @@
+import { renderOrderSummary } from "../scripts/checkout/orderSummary.js";
+
 export let cart;
 
 loadFromStorage();
@@ -56,6 +58,7 @@ export function removeFromCart(productId) {
     });
     cart = newCart;
     saveToStorage();
+    renderOrderSummary();
 }
 
 export function calculateCartQuantity(selector,formatText = false){
