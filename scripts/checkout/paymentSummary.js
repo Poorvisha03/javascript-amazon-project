@@ -58,8 +58,22 @@ import { addOrder } from "../../data/orders.js";
     document.querySelector('.js-payment-summary')
     .innerHTML = paymentSummaryHTML;
 
+    function renderPlaceOrderButton(){
+    const placeOrderBtn = document.querySelector('.js-place-order');
+
+    if(!cart || cart.length === 0){
+        placeOrderBtn.classList.add('disabled');
+    }else{
+        placeOrderBtn.classList.remove('disabled');   
+    }
+    }
+    renderPlaceOrderButton();
+
     document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
+        if(!cart || cart.length === 0){
+            return;
+        }
         try{
             const response = await fetch('https://supersimplebackend.dev/orders',{
             method: 'POST',
@@ -79,4 +93,6 @@ import { addOrder } from "../../data/orders.js";
         }
         window.location.href = 'orders.html';
     });
+
+    
  }

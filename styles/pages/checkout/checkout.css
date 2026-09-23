@@ -210,6 +210,12 @@
   margin-bottom: 15px;
 }
 
+.place-order-button.disabled{
+  opacity: 0.5;
+  cursor:not-allowed;
+  pointer-events: none;
+}
+
 .view-products-button{
   width: 150px;
   padding-top: 12px;
