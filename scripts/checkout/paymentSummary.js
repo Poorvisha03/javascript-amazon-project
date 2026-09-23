@@ -1,4 +1,4 @@
-import { calculateCartQuantity, cart } from "../../data/cart.js";
+import { calculateCartQuantity, cart, clearCart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../utils/money.js";
@@ -87,6 +87,7 @@ import { addOrder } from "../../data/orders.js";
 
             const order = await response.json();
             addOrder(order);
+            clearCart();
 
         } catch (error){
             console.log('Unexpected error: Please try again later')
