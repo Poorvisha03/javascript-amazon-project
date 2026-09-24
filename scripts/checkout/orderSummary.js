@@ -128,7 +128,9 @@ export function renderOrderSummary(){
             
             //const container = document.querySelector(`.js-cart-item-container-${productId}`);
             //container.remove();
-            calculateCartQuantity('.js-item-quantity',true); 
+            calculateCartQuantity('.js-item-quantity',true);
+            renderOrderSummary();
+            renderPaymentSummary();
             
         });
         

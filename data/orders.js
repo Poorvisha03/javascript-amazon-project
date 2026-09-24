@@ -1,10 +1,10 @@
-import { cart } from "./cart.js";
+import {cart, calculateCartQuantity} from "./cart.js"
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
 
 
 export function addOrder(order){
-    if(cart.length > 0){
+    if(cart && cart.length > 0){
         orders.unshift(order);
         saveToStorage();
         }
@@ -13,3 +13,5 @@ export function addOrder(order){
 function saveToStorage(){
     localStorage.setItem('orders',JSON.stringify(orders));
 }
+
+calculateCartQuantity('.js-cart-quantity',false);
