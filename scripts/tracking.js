@@ -40,7 +40,7 @@ async function renderTrackingPage(){
           <div class="progress-label">
             Preparing
           </div>
-          <div class="progress-label current-status">
+          <div class="progress-label">
             Shipped
           </div>
           <div class="progress-label">
@@ -54,6 +54,32 @@ async function renderTrackingPage(){
 
     document.querySelector('.js-order-tracking')
     .innerHTML = trackingHTML;
+
+    const currentTime = dayjs();
+    const orderTime = dayjs(matchingOrder.orderTime);  
+    const deliveryTime = dayjs(orderProductDetails.estimatedDeliveryTime);
+
+    let widthPercent = ((currentTime - orderTime)/(deliveryTime - orderTime)) * 100
+    widthPercent  = Math.max(5,Math.min(100, widthPercent));
+
+    const progressBar = document.querySelector('.progress-bar');
+    progressBar.style.width = '0%';
+
+    setTimeout(() => {
+      progressBar.style.width = `${widthPercent}%`;
+    },500)
+
+    const labels = document.querySelectorAll('.progress-label');
+
+    labels.forEach(label => label.classList.remove('current-status'));
+
+    if(widthPercent < 50){
+      labels[0].classList.add('current-status');
+    }else if(widthPercent >= 50 && widthPercent < 100){
+      labels[1].classList.add('current-status');
+    }else{
+      labels[2].classList.add('current-status');
+    }
 
 
 }
