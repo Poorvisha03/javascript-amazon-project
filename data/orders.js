@@ -1,5 +1,5 @@
 import { formatCurrency } from "../scripts/utils/money.js";
-import {cart, calculateCartQuantity} from "./cart.js"
+import {cart, calculateCartQuantity, addToCart} from "./cart.js"
 import { products,loadProductsFetch } from "./products.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 
@@ -63,8 +63,7 @@ function renderOrdersPage(){
                     return p.id ===  product.productId
                     
                 });
-                console.log(product);
-                console.log(matchingProduct)
+                
                 const name = matchingProduct ? matchingProduct.name : 'Unknown Product';
                 const image = matchingProduct ? matchingProduct.image : 'images/amazon-logo.png';
                 const deliveryDate = dayjs(product.estimatedDeliveryTime).format('MMMM D');
@@ -86,7 +85,8 @@ function renderOrdersPage(){
                         <div class="product-quantity">
                         Quantity: ${product.quantity}
                         </div>
-                        <button class="buy-again-button button-primary">
+                        <button class="buy-again-button button-primary js-buy-again"
+                        data-product-id="${matchingProduct.id}">
                         <img class="buy-again-icon" src="images/icons/buy-again.png">
                         <span class="buy-again-message">Buy it again</span>
                         </button>
@@ -108,6 +108,19 @@ function renderOrdersPage(){
             productDetailsGrid.innerHTML = productDetailsHTML;
         }
     }); 
+    const buyAgainBtn = document.querySelectorAll('.js-buy-again');
+    buyAgainBtn.forEach((button) =>{
+        button.addEventListener('click',() =>{
+            const {productId} = button.dataset;
+            addToCart(productId);
+            calculateCartQuantity('.js-cart-quantity',false);
+            button.innerHTML = '&#10003; Added'
+            setTimeout(() => {
+                button.innerHTML = `<img class="buy-again-icon" src="images/icons/buy-again.png">
+                        <span class="buy-again-message">Buy it again</span>`;
+            },2000)
+        });
+    });
     
 }
 loadProductsFetch().then(() => {
