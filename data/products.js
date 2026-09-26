@@ -72,7 +72,6 @@ export function loadProductsFetch(){
       return new Product(productDetails);
     });
 
-    console.log('load products')
     
   }).catch(() => {
     console.log('unexpected error: products cannot be Loaded')

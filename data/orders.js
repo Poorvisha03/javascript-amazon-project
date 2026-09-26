@@ -12,7 +12,6 @@ export function addOrder(order){
         saveToStorage();
         }
     } 
-console.log(orders);
 
 function saveToStorage(){
     localStorage.setItem('orders',JSON.stringify(orders));
@@ -67,6 +66,7 @@ function renderOrdersPage(){
                 const name = matchingProduct ? matchingProduct.name : 'Unknown Product';
                 const image = matchingProduct ? matchingProduct.image : 'images/amazon-logo.png';
                 const deliveryDate = dayjs(product.estimatedDeliveryTime).format('MMMM D');
+                const productId = matchingProduct ? matchingProduct.id : product.ProductId
                 
             
             productDetailsHTML += `
@@ -86,14 +86,14 @@ function renderOrdersPage(){
                         Quantity: ${product.quantity}
                         </div>
                         <button class="buy-again-button button-primary js-buy-again"
-                        data-product-id="${matchingProduct.id}">
+                        data-product-id="${productId}">
                         <img class="buy-again-icon" src="images/icons/buy-again.png">
                         <span class="buy-again-message">Buy it again</span>
                         </button>
                     </div>
 
                     <div class="product-actions">
-                        <a href="tracking.html">
+                        <a href="tracking.html?orderId=${order.id}&productId=${productId}">
                             <button class="track-package-button button-secondary">
                                 Track package
                             </button>
