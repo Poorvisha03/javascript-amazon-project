@@ -1,16 +1,13 @@
 import {cart, addToCart,calculateCartQuantity} from '../data/cart.js';
-import {products,loadProducts} from '../data/products.js';
+import {products,loadProducts, loadProductsFetch} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
-
-let productsToRender = [];
-
-loadProducts(() => {
-    productsToRender = products;
-    renderproductsGrid();
-});
+import { productsToRender } from '../data/searchbar.js';
 
 
-function renderproductsGrid(){
+
+
+
+export function renderproductsGrid(){
 
     let productsHTML = '';
 
@@ -102,48 +99,4 @@ function renderproductsGrid(){
                 renderaddedMessage(productId);   
             });
         });
-
-        
-
 }
-
-const searchButton = document.querySelector('.js-search-button');
-const searchInput = document.querySelector('.js-search-bar');
-
-function performSearch(){
-    const searchTerm = searchInput.value.toLowerCase().trim();
-
-    if(searchTerm === ''){
-        productsToRender = products;
-        renderproductsGrid();
-        return;
-    }
-
-    productsToRender = products.filter((product) =>  {
-        const matchesName = product.name.toLowerCase().includes(searchTerm);
-
-        const matchesKeyWords = product.keywords && product.keywords.some(keyword => 
-            keyword.toLowerCase().includes(searchTerm)
-        );
-
-        return matchesName || matchesKeyWords;
-    });
-    if(!productsToRender || productsToRender.length === 0){
-        document.querySelector('.js-products-grid').innerHTML = `<p>No Products Matched Your Search.</p>`
-    }else{
-        renderproductsGrid();
-    }
-    
-    console.log(productsToRender)
-}
-
-searchButton.addEventListener('click', () =>{
-    performSearch();
-});
-
-searchInput.addEventListener('keydown',(event) =>{
-    if(event.key === 'Enter'){
-            performSearch();
-    }
-    
-});
